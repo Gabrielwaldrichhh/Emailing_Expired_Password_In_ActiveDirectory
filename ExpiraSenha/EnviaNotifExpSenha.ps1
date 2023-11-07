@@ -15,10 +15,10 @@ $smtpUsername = $cred.credentials.username
 $smtpPassword = ConvertTo-SecureString $cred.credentials.password -AsPlainText -Force
 $smtpCred = New-Object System.Management.Automation.PSCredential ($smtpUsername, $smtpPassword)
 
-Connect-ExchangeOnline -UserPrincipalName ##EscrevaSeuUser## -ShowProgress $true -Credential $smtpCred
+Connect-ExchangeOnline -UserPrincipalName 'SuaCaixaDeEmail' -ShowProgress $true -Credential $smtpCred
 #$cred = Import-Clixml -Path "C:\ExpiraSenha\o365clear.xml"
 
-$assunto = "[Benner] Expiração de senha"
+$assunto = "Expiração de senha"
 $enc = [System.Text.Encoding]::UTF8
 
 # Para cada usuário habilitado do Active Directory
@@ -85,6 +85,6 @@ foreach ($user in $users) {
 "@
         
         # Envie o e-mail
-        Send-MailMessage -From "##SuaCaixaDeEmail" -To $destinatario -Subject $assunto -Body $corpoHtml -BodyAsHtml -SmtpServer "smtp.office365.com" -UseSsl -Port 587 -Credential $smtpCred -Encoding UTF8
+        Send-MailMessage -From "SuaCaixaDeEmail" -To $destinatario -Subject $assunto -Body $corpoHtml -BodyAsHtml -SmtpServer "smtp.office365.com" -UseSsl -Port 587 -Credential $smtpCred -Encoding UTF8
     }
 }
